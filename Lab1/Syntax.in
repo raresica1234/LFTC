@@ -1,0 +1,42 @@
+array_declaration ::= identifier "[]"
+array_access ::= identifier "[" (identifier | integer) "]"
+
+expression = integer | identifier | string | array_access
+
+assign_statement ::= identifier "=" expression ";"
+
+print_substatement ::= expression | expression "," print_substatement
+print_statement ::= "print(" print_substatement ")" | "println(" print_substatement ")"
+
+read_statements ::= "readInt()" | "readString()"
+
+io_statement ::= read_statements | print_statement
+
+
+declaration_substatement ::= identifier | identifier "," declaration_substatement
+declaration_statement ::= (identifier | array_declaration) " " identifier | (identifier | array_declaration) " " assign_statement | (identifier | array_declaration) declaration_substatement
+
+
+simple_statement ::= assign_statement | io_statement | declaration_statement
+
+
+relation ::= "<" | "<=" | ">" | ">="| "==" | "!="
+condition = expression relation expression | condition relation expression
+
+if_statement ::= "if (" condition ") {" statement_list "}" [("else {" statement_list "}") | "else" if_statement]
+
+
+for_statement ::= "for (" for_condition ") {" statement_list "}"
+for_condition ::= identifier identifier "=" (integer|identifier) "," (integer|identifier) ["," (integer | identifier)]
+
+
+while_statement ::= "while (" condition ") {" statement_list "}"
+
+
+struct_statement ::= if_statement | for_statement | while_statement
+
+
+statement ::= simple_statement | struct_statement
+statement_list ::= statement|statement";"statement_list
+
+program ::= "main()"[" "]"{"statement_list"}"

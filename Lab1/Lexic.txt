@@ -1,0 +1,30 @@
+Alphabet:
+a. Upper (A-Z) and lower case letters (a-z) of the English alphabet
+b. Underline character '_';
+c. Decimal digits (0-9);
+
+Lexic:
+a.Special symbols, representing:
+    - operators + - * / = < <= == >= && ||
+    - separators ( ) ; { } [ ]
+    - reserved words: int readInt print readString if else while for main 
+
+b.identifiers
+    -a sequence of letters and  digits, such that the first character is a letter; the rule is:
+        identifier ::= letter|letter{(letter|digit|symbol)}
+        letter ::= "a"|"b"|...|"z"|"A"|"B"|..."Z"
+
+        non_zero_digit :: = "1"|...|"9"
+        digit ::= "0" | non_zero_digit
+
+c.constants
+    1.integer - rule:
+        number ::= digit|non_zero_digit{digit}
+        integer ::= ["+"|"-"]number|"0"
+
+    2.string
+        all_symbols ::= symbol | "#" | "!" | "~" | ...
+        string ::= "\""[{(letter|digit|all_symbols)}]"\""
+    
+    3. character
+        character ::= "'"(letter|digit|all_symbols)"'"

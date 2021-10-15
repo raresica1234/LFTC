@@ -1,0 +1,16 @@
+main {
+	int a = readInt();
+	int b = readInt();
+
+	print("The GCD of", a, "and", b);
+	while (a != b) {
+		if (a > b) {
+			a = a - b;
+		}
+		else {
+			b = b - a; 
+		}
+	}
+
+	 println(" is", a, ") // lexical error because the string is not closed
+}

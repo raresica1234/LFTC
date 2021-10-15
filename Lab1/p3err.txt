@@ -1,0 +1,14 @@
+main {
+	print("n=");
+	int n = readInt();
+	int max = -9999;
+	
+	for (int i=0,!) { // unallowed character
+		int x = readInt();
+		if (x > max) {
+			max = x;
+		}
+	}
+
+	print("The max number is", max);
+}
