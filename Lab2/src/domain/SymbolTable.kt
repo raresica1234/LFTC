@@ -5,6 +5,10 @@ class SymbolTable(private var capacity: Int, private val alpha: Float) {
 
     private var size = 0;
 
+    init {
+        initializeLists()
+    }
+
     fun add(token: Value) {
         checkSizeAndGrow()
         size++
@@ -12,21 +16,22 @@ class SymbolTable(private var capacity: Int, private val alpha: Float) {
         values[position].add(token)
     }
 
-    fun find(token: Value) : Boolean {
+    fun find(token: Value): Position {
         val position = hash(token)
-        for (currentToken in values[position]) {
-            if (currentToken == token) {
-                return true
+        for (i in 0 until values[position].size) {
+            if (values[position][i] == token) {
+                return Position(position, i)
             }
         }
-        return false
+        return Position(-1, -1)
     }
 
-    fun checkSizeAndGrow() {
+    private fun checkSizeAndGrow() {
         val lastValues = values
-        if(size.toFloat() / capacity.toFloat() >= alpha) {
+        if (size.toFloat() / capacity.toFloat() >= alpha) {
             capacity *= 2
             values = ArrayList(capacity)
+            initializeLists()
             for (tokenList in lastValues) {
                 for (token in tokenList) {
                     add(token)
@@ -35,7 +40,13 @@ class SymbolTable(private var capacity: Int, private val alpha: Float) {
         }
     }
 
-    private fun hash(token: Value) : Int {
+    private fun initializeLists() {
+        for (i in 0 until capacity) {
+            values.add(i, ArrayList())
+        }
+    }
+
+    private fun hash(token: Value): Int {
         return token.hashFunction() % capacity
     }
 }
