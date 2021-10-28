@@ -1,0 +1,20 @@
+main {
+	print("n=");
+	int n = readInt();
+	int[] v = int[n];
+	int sum = 0;
+
+
+	for (int i=0,v) {
+		print("v[", i, "] = ");
+		v[i] = readInt();
+	}
+
+	// go in reverse for proof of concept
+
+	for (int i=v-1,0,-1) {
+		sum += v[i];
+	}
+
+	print("Sum of", n, "numbers is:", sum);
+}
