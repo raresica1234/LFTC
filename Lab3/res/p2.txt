@@ -1,9 +1,10 @@
+n=-14-15
 main {
-	int a = readInt();
+	int ab = readInt();
 
 	boolean prime = true;
 
-	if (a <= 1) {
+	if (ba <= 1) {
 		prime = false;
 	}
 	else if (a == 2) {

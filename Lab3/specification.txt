@@ -1,0 +1,58 @@
+letter ::= "a"|"b"|...|"z"|"A"|"B"|..."Z"
+non_zero_digit :: = "1"|...|"9"
+digit ::= "0" | non_zero_digit
+symbol ::= "_"
+all_symbols ::= symbol | "@" | "?" | "!" | ...
+
+number ::= digit|non_zero_digit{digit}
+integer ::= number|"0"
+identifier ::= letter|letter{(letter|digit|symbol)}
+string ::= "\""[{(letter|digit|all_symbols)}]"\""
+
+
+array_declaration ::= identifier "[]"
+array_access ::= identifier "[" (identifier | integer) "]"
+
+operator ::= "+" | "-" | "*" | "/"
+sign ::= "+" | "-"
+
+expression_type ::= integer | identifier | string | array_access
+expression ::= expression_type | sign expression_type | expression_type operator expression_type
+
+assign_statement ::= identifier "=" expression ";"
+
+print_substatement ::= expression | expression "," print_substatement
+print_statement ::= "print(" print_substatement ")" | "println(" print_substatement ")"
+
+read_statements ::= "readInt()" | "readString()"
+
+io_statement ::= read_statements | print_statement
+
+
+declaration_substatement ::= identifier | identifier "," declaration_substatement
+declaration_statement ::= (identifier | array_declaration) " " identifier | (identifier | array_declaration) " " assign_statement | (identifier | array_declaration) declaration_substatement
+
+
+simple_statement ::= assign_statement | io_statement | declaration_statement
+
+
+relation ::= "<" | "<=" | ">" | ">="| "==" | "!="
+condition = expression relation expression | condition relation expression
+
+if_statement ::= "if (" condition ") {" statement_list "}" [("else {" statement_list "}") | "else" if_statement]
+
+
+for_statement ::= "for (" for_condition ") {" statement_list "}"
+for_condition ::= identifier identifier "=" (integer|identifier) "," (integer|identifier) ["," (integer | identifier)]
+
+
+while_statement ::= "while (" condition ") {" statement_list "}"
+
+
+struct_statement ::= if_statement | for_statement | while_statement
+
+
+statement ::= simple_statement | struct_statement
+statement_list ::= statement|statement";"statement_list
+
+program ::= "main()"[" "]"{"statement_list"}"

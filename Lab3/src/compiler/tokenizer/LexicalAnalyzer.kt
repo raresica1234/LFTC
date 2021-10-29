@@ -44,14 +44,6 @@ class LexicalAnalyzer(var data: String) {
 			}
 
 			if (!found) {
-				identifier.find(data)?.let { answer ->
-					token = Token(answer.value)
-					addLiteralOrConstant(token, "identifier")
-					found = true
-				}
-			}
-
-			if (!found) {
 				literals.forEach {
 					it.find(data)?.let { answer ->
 						token = Token(answer.value)
@@ -62,8 +54,16 @@ class LexicalAnalyzer(var data: String) {
 			}
 
 			if (!found) {
+				identifier.find(data)?.let { answer ->
+					token = Token(answer.value)
+					addLiteralOrConstant(token, "identifier")
+					found = true
+				}
+			}
+
+			if (!found) {
 				error += "Lexical error at line $currentLine, unknown token.\n"
-				error += "Trying to parse: " + data.substringBefore(" ")
+				error += "Trying to parse: " + data.substringBefore("\n")
 				validProgram = false
 				return
 			}
@@ -98,7 +98,7 @@ class LexicalAnalyzer(var data: String) {
 		var result: String = ""
 
 		programInternalForm.forEach {
-			result += "(\"${it.token}\", ${it.position?.left ?: "-1"}, ${it.currentLine})\n"
+			result += "(\"${it.token}\", ${it.position?.left ?: "-1"}, ${it.position?.right ?: "-1"})\n"
 		}
 
 		return result
