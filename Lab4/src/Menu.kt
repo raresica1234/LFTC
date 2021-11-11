@@ -1,5 +1,4 @@
 class Menu {
-
 	private val commands = ArrayList<MenuCommand>()
 
 	fun start() {
