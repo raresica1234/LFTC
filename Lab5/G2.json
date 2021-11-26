@@ -1,0 +1,56 @@
+{
+    "nonTerminals": [
+        "array_declaration", "array_access", "operator", "sign",
+        "expression_type", "expression", "assign_statement", "print_substatement", "print_statement",
+        "read_statement", "io_statement", "declaration_substatement", "declaration_statement",
+        "simple_statement", "relation", "condition", "if_statement", "for_statement", "for_condition", "for_sub_condition",
+        "while_statement", "struct_statement", "statement", "statement_list", "program"
+    ],
+    "terminals": [
+        "integer", "identifier", "string", "main()", "{", "}", ";",
+        "(", ")", "for", "while", "<", "<=",">",">=","==","!=", ",", "=", "-",
+        "+", "-", "*", "/", "[", "]"
+    ],
+    "start": ["program"],
+    "productions": {
+        "program": ["main ( ) { statement_list }"],
+        "statement_list": ["statement", "statement ; statement_list"],
+        "statement": ["simple_statement", "struct_statement"],
+        "struct_statement": ["if_statement", "for_statement", "while_statement"],
+        "while_statement":["while ( condition ) { statement_list }"],
+        "for_statement": ["for ( for_condition ) { statement_list }"],
+        "for_condition": [
+            "identifier identifier = for_sub_condition , for_sub_condition",
+            "identifier identifier = for_sub_condition , for_sub_condition , for_sub_condition"
+        ],
+        "for_sub_condition": ["integer", "identifier"],
+        "if_statement": [
+            "if ( condition ) { statement_list }",
+            "if ( condition ) { statement_list } else { statement_list }",
+            "if ( condition ) { statement_list } else if_statement"
+        ],
+        "condition": ["expression relation expression", "condition relation expression"],
+        "relation": ["<", "<=",">",">=","==","!="],
+        "simple_statement": [ "assign_statement", "io_statement", "declaration_statement"],
+        "declaration_statement": [
+            "identifier identifier",
+            "array_declaration identifier",
+            "identifier assign_statement",
+            "array_declaration assign_statement",
+            "identifier declaration_substatement",
+            "array_declaration declaration_substatement"
+        ],
+        "declaration_substatement": ["identifier", "identifier, declaration_substatement"],
+        "io_statement": ["read_statement", "print_statement"],
+        "read_statement": ["readInt ( )", "readString ( )"],
+        "print_statement": ["print ( print_substatement )", "println ( print_substatement )"],
+        "print_substatement": ["expression", "expression, print_substatement"],
+        "assign_statement": ["identifier = expression"],
+        "expression": ["expression_type", "sign expression_type", "expression_type operator expression_type"],
+        "expression_type": ["integer", "identifier", "string", "array_access"],
+        "sign": ["=", "-"],
+        "operator": ["+", "-", "*", "/"],
+        "array_access": ["identifier [ identifier ]", "identifier [ integer ]"],
+        "array_declaration": ["identifier [ ]"]
+    }
+}
